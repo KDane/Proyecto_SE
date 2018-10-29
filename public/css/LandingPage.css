@@ -215,13 +215,13 @@ header.masthead p {
 }
 
 .service-box {
-  max-width: 400px;
+  max-width: 500px;
 }
 
 .portfolio-box {
   position: relative;
   display: block;
-  max-width: 650px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -306,6 +306,27 @@ header.masthead p {
 
 .btn-primary:active, .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+}
+
+.features-icons {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
+.features-icons .features-icons-item {
+  max-width: 20rem;
+}
+
+.features-icons .features-icons-item .features-icons-icon {
+  height: 7rem;
+}
+
+.features-icons .features-icons-item .features-icons-icon i {
+  font-size: 4.5rem;
+}
+
+.features-icons .features-icons-item:hover .features-icons-icon i {
+  font-size: 5rem;
 }
 
 

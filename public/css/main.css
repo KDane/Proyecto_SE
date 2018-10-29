@@ -1,0 +1,38 @@
+body {
+    padding-top: 5rem;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+
+#formulario-login .form-control{
+    font-size: 0.75em;
+}
+
+
+.navbar{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#tabla-iconos td{
+    padding:15px;
+    font-size: 1em;
+}
+
+#formulario-signup .form-control{
+    margin:5px;
+}
+
+#texto-pequenio{
+    color: #777;
+    font-size: 11px;
+    width: 316px;
+}
+
+.input-error{
+    border-color:red;
+    color:red;
+}
