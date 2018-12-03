@@ -15,24 +15,26 @@
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
             <div class="col-md-4 col-sm-4 col-xs-12">
-                <form class="form-container">
+                <form class="form-container" id="formulario">
                     <h2>Iniciar Sesión</h2>
                     <div class="form-group">
                         <label>Correo</label>
-                        <input type="email" placeholder="Correo" class="form-control" id="correo">
+                        <input type="text" placeholder="Correo" class="form-control" id="correo" name="correo">
                     </div> 
                     <div class="form-group">
                         <label>Contraseña</label>
-                        <input type="password" placeholder="Contraseña" class="form-control" id="contraseña">
+                        <input type="password" placeholder="Contraseña" class="form-control" id="contraseña" name="contrasena">
                     </div> 
                     <div>
-                        <a class="btn btn-primary btn-block" href="Home.html">Ingresar</a>
+                        <button class="btn btn-primary btn-block" type="button" id="btn-login">Ingresar</button>                      
                     </div>  
                 </form>           
             </div>
             <div class="col-md-4 col-sm-4 col-xs-12"></div>
         </div>
     </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/controlador.js"> </script>
 </body>
 </html>
 
