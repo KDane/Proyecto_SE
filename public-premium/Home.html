@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>KASI-CODIGO</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/fontawesome-all.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <style>
+      .form-control{
+        margin-bottom: 6px;
+      }
+
+      .post{
+        background-color: #FFFFFF; 
+        border: 1px solid #dcdedf;
+        margin: 0 12px;
+        padding: 15px;
+        border-radius:5px;
+        margin-bottom: 10px;
+      }
+
+      .img-thumbnail{
+        max-width: 50px;
+      }
+
+      .bg{
+          background: url("../img/Fondo11.png");
+          enable-background:100ch;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+      <a class="navbar-brand" href="#" ><img src="img/logo5.png" style="width: 200px;"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <form class="form-inline my-2 my-lg-0 ml-auto">
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Password">
+          <button class="btn btn-ligth btn-large" type="button" >Salir</button>
+        </form>
+      </div>
+    </nav>
+
+    <br><br>
+    <main role="main" class="container ">
+      <!-- Button trigger modal -->
+    <!-- <img src="img/Fondo11.png" style="width: 700px; height: 500px; margin: 60px 0px">-->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#postsModal">
+      Nuevo Carpeta</button>
+    <a class="btn btn-primary btn-xl js-scroll-trigger" href=Planes.html>Planes</a>
+
+    </main><!-- /.container -->
+
+   
+    <!-- Ventana modal para agregar posts -->
+<div class="modal fade" id="postsModal" tabindex="-2" role="dialog" aria-labelledby="postsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="postsModalLabel">Crear Carpeta</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="txt-carpeta" placeholder="Nombre Carpeta">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+          <input type="button" class="btn btn-primary" value="Guardar" data-toggle="table" data-target="tb-carpeta">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="js/bootstrap.min.js"></script>
+    
+  </body>
+</html>

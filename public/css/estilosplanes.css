@@ -1,0 +1,199 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+body{
+    background-color:  #007bff;
+    font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}
+
+a{ text-decoration: none;
+
+}
+
+ul{
+    list-style: none;
+}
+
+.wrap{
+    width: 80%;
+    max-width: 1170px;
+    margin: 30px auto;
+
+}
+
+.miswitch{
+    border: 1px solid #225878;
+    border-radius: 20px;
+    color: #fff;
+    position: relative;
+    margin: 0px auto 50px;
+    width: 200px;
+    overflow:hidden;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.miswitch a{
+    width: 50px;
+    font-size:14px;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+    cursor:pointer;
+}
+
+.swicht-btn{
+
+    background: #0c1f28;
+    width: 50%;
+    height: 90%;
+    border-radius: 20px;
+    top:2px;
+    font-size:14 px;
+    z-index: 1;
+    position:absolute;
+    left: 2px;
+    transition: all .5s;
+}
+
+.on{
+    left: 97px;
+
+}
+
+.principing-wrap{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.principing-table{
+    width: 30%;
+    transition: transform .5s ease;
+
+    -webkit-perspective: 2000px;
+    perspective: 2000px;
+
+
+}
+
+.principing-table:hover{
+    transform: scale(1.07);
+}
+
+.principing-table-cont{
+    background: #fff;
+    text-align:center;
+    position:relative;
+    height: 300px;
+
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.principing-table-month, .principing-table-year{
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #fff;
+}
+
+.principing-table-year{
+    transform: rotateY(180deg);
+}
+
+.rotando-tabla{
+    transform: rotateY(180deg);
+}
+
+
+.principing-table-head{
+    color: #173050;
+    padding: 30px 0px;
+
+}
+
+.principing-table-head h2{
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-weight:bold;
+}
+
+
+.principing-table-head h3{
+    font-size: 60px;
+    letter-spacing: 400;
+    display:inline;
+}
+
+.principing-table-head h3 sup, .principing-table-head h3 sub{
+    font-size: 20px;
+    color: #a8bbbac0;
+    font-weight: 600;
+}
+
+.principing-table-head h3 sub{
+    font-size:13px;
+}
+
+.principing-table-head.Estandar-title h2,
+.principing-table-head.Estandar-title h3,
+.principing-table-head.Estandar-title h3 sup,
+.principing-table-head.Estandar-title h3 sub{
+    color: #e97d68
+}
+
+.principing-table-list li{
+    background: #f1f3f5;
+    padding: 10px 0;
+}
+
+
+.principing-table-list li:nth-child(2n){
+    background: #fff;
+
+}
+
+.principing-table-button{
+    display:block;
+    width: 100%;
+    padding: 20px 0;
+    background: #0c1f28;
+    color: #FFF;
+    margin-top: 23px;
+}
+
+@media screen and (max-width: 750px){
+    .principing-table{
+        width:72%;
+        margin-bottom: 20px;
+    }
+
+    .principing-wrap{
+        justify-content: center;
+
+    }
+
+    .principing-table:hover{
+        transform: scale(1.0);
+    }
+}
+
+@media screen and (max-width: 500px){
+    .principing-table{
+        width:90%;
+    }
+
+}
