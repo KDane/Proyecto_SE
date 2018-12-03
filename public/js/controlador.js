@@ -1,4 +1,3 @@
-
 $("#btn-login").click(function(){
     console.log($("#formulario").serialize());
     $.ajax({
@@ -17,4 +16,5 @@ $("#btn-login").click(function(){
             console.error(error);
         }
     });
+
 });

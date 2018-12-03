@@ -3,6 +3,7 @@ var session = require("express-session");
 var bodyParser = require("body-parser");
 var mysql = require("mysql");
 var app = express();
+
 var credenciales ={
   user:"root",
   password:"",
@@ -20,18 +21,16 @@ app.use(session({secret:"ASDFE$%#%",resave:true, saveUninitialized:true}));
 //Verificar si existe una variable de sesion para poner publica la carpeta public admin
 var publicAdmin = express.static("public-basico");
 var publicCajero = express.static("public-estandar");
-var publicCajero = express.static("public-premium");
+
 
 app.use(
     function(req,res,next){
-        if (req.session.Correo){
+        if (req.session.correoUsuario){
             //Significa que el usuario si esta logueado
-            if (req.session.idPlan == 1)
+            if (req.session.idPlanUsuario == 1)
                 publicbasico(req,res,next);
-            else if (req.session.idPlan == 2)
+            else if (req.session.idPlanUsuario == 2)
                 publicestandar(req,res,next);
-                else if (req.session.idPlan == 3)
-                publicpremium(req,res,next);
         }
         else
             return next();
@@ -43,17 +42,17 @@ app.use(
 app.post("/login",function(req, res){
     var conexion = mysql.createConnection(credenciales);
     conexion.query(
-        "SELECT idUsuario, Correo, idPlan FROM usuario WHERE Contrasena = sha1(?) and Correo=?",
-        [req.body.Contrasena, req.body.Correo],
+        "SELECT idUsuario, Correo, idPlan FROM usuario WHERE  Correo=? and Contrasena = sha1(?)",
+        [req.body.correo, req.body.contrasena],
         function(error, data, fields){
             if (error){
                 res.send(error);
                 res.end();
             }else{
                 if (data.length==1){
-                    req.session.idUsuario = data[0].idUsuario;
-                    req.session.Correo = data[0].Correo;
-                    req.session.idPlan = data[0].idPlan;
+                    req.session.idUsuarioN = data[0].idUsuario;
+                    req.session.correoUsuario = data[0].Correo;
+                    req.session.idPlanUsuario = data[0].idPlan;
                 }
                 res.send(data);
                 res.end();
@@ -63,9 +62,9 @@ app.post("/login",function(req, res){
 });
 
 app.get("/obtener-session",function(req,res){
-    res.send("Codigo Usuario: " + req.session.idUsuario+
-            ", Correo: " + req.session.Correo +
-            ", Tipo Usuario: " + req.session.idPlan
+    res.send("Codigo Usuario: " + req.session.idUsuarioN+
+            ", Correo: " + req.session.correoUsuario +
+            ", Tipo Usuario: " + req.session.idPlanUsuario
     );
     res.end();
 });
