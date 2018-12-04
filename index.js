@@ -19,8 +19,9 @@ app.use(express.static("public"));
 app.use(session({secret:"ASDFE$%#%",resave:true, saveUninitialized:true}));
 
 //Verificar si existe una variable de sesion para poner publica la carpeta public admin
-var publicAdmin = express.static("public-basico");
-var publicCajero = express.static("public-estandar");
+var publicbasico = express.static("public-basico");
+var publicestandar = express.static("public-estandar");
+var publicpremium = express.static("public-premium");
 
 
 app.use(
@@ -31,6 +32,8 @@ app.use(
                 publicbasico(req,res,next);
             else if (req.session.idPlanUsuario == 2)
                 publicestandar(req,res,next);
+                else if (req.session.idPlanUsuario == 3)
+                publicpremium(req,res,next);
         }
         else
             return next();
