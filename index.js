@@ -45,7 +45,7 @@ app.use(
 app.post("/login",function(req, res){
     var conexion = mysql.createConnection(credenciales);
     conexion.query(
-        "SELECT idUsuario, Correo, idPlan FROM usuario WHERE  Correo=? and Contrasena = sha1(?)",
+        "SELECT idUsuario, Correo, idPlan FROM usuario WHERE  correo=? and contrasena = sha1(?)",
         [req.body.correo, req.body.contrasena],
         function(error, data, fields){
             if (error){
@@ -64,8 +64,8 @@ app.post("/login",function(req, res){
 });
 
 app.get("/obtener-session",function(req,res){
-    res.send("Codigo Usuario: " + req.session.idUsuarioN+
-            ", Correo: " + req.session.correoUsuario +
+    res.send(
+            " Correo: " + req.session.correoUsuario +
             ", Tipo Usuario: " + req.session.idPlanUsuario
     );
     res.end();
@@ -80,4 +80,18 @@ app.get("/cerrar-session",function(req,res){
 });
 
 
-app.listen(8111);
+
+app.get("/obtener-plan", function(req, res){
+    var conexion = mysql.createConnection(credenciales);
+    conexion.query("SELECT idUsuario, Correo, idPlan  FROM usuario"),
+    [],
+    function(error, data, fields){
+        res.send(data);
+        res.end();
+    }   
+});
+
+
+
+
+app.listen(8110);
