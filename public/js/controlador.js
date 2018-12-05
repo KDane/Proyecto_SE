@@ -7,8 +7,8 @@ $("#btn-login").click(function(){
         dataType:"json",
         success:function(resp){
             console.log(resp);
-            if (resp.length==1)
-                window.location.href = "./Home.html";
+            if (resp.length==0)
+                window.location.href ="Home.html";
             else 
                 alert("Credenciales invalidas");
         },

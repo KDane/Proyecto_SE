@@ -52,8 +52,7 @@ app.post("/login",function(req, res){
                 res.send(error);
                 res.end();
             }else{
-                if (data.length==1){
-                    req.session.idUsuarioN = data[0].idUsuario;
+                if (data.length>0){
                     req.session.correoUsuario = data[0].Correo;
                     req.session.idPlanUsuario = data[0].idPlan;
                 }
