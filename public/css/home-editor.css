@@ -1,0 +1,57 @@
+body{
+     background-color: black;
+}   
+    
+    
+    #contenedor{
+        height: 88vh;
+        width: 100vw;
+        position:absolute;
+        margin: 90px 0 0 0;
+        display: flex;
+        background-color: black;
+        top: 0; left: 0;
+        padding: 1vw  1vw ;
+    }
+
+    #e-html{
+        display: inline-block;
+    }
+
+    #e-css{
+        display: inline-block;
+    }
+
+    #e-js{
+
+        display: inline-block;
+
+    }
+
+    
+    
+    #resultado{
+        flex: 1;
+        background-color:white;
+        border-color: white;
+    }
+
+
+    #code{
+        display:flex;
+        flex-direction: column;
+        flex: 1;
+        margin-left: 10px;
+        background-color: rgb(250, 250, 250);
+    }
+
+    #code > div{
+        flex:1;
+        
+    }
+
+    #lab{
+        font-size: 1em;
+        font-weight: bold;
+        font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+    }

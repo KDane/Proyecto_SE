@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Editor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/home-editor.css">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+                <a class="navbar-brand" href="#" ><img src="img/logo5.png" style="width: 200px;"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+          
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                  <form class="form-inline my-2 my-lg-0 ml-auto">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Password">
+                    <a class="btn btn-ligth btn-large" type="button"  href="/cerrar-session">Salir</a>
+                  </form>
+                </div>
+              </nav>
+
+
+<main id="contenedor">  
+    <div id="code">
+        <label id="lab">Escriba aquí HTML...</label>
+        <div id="e-html"></div>
+        <label id="lab">Escriba aquí  CSS...</label>
+        <div id="e-css"></div>
+        <label id="lab">Escriba aquí JAVASCRIPT..</label>
+        <div id="e-js"></div>
+    </div>
+    <iframe id="resultado"></iframe>
+    </div>
+    
+</main>
+
+
+<script src="js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+<script src="/ace-builds/src-noconflict/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script>
+    function update(){
+        var res= document.getElementById('resultado').contentWindow.document;
+        res.close();
+        res.open();
+        res.write(h.getValue() +  '<style>'+ c.getValue()+'</style>' + '<script>' + j.getValue()+ '<\/script>'  ) ;
+        
+    }
+
+    function seteditor(){
+        window.h = ace.edit("e-html");
+        h.session.setMode("ace/mode/html");
+        h.setTheme("ace/theme/terminal");
+
+        window.c = ace.edit("e-css");
+        c.session.setMode("ace/mode/css");
+        c.setTheme("ace/theme/terminal");
+
+        window.j = ace.edit("e-js");
+        j.session.setMode("ace/mode/js");
+        j.setTheme("ace/theme/terminal");
+
+
+        h.getSession().on('change', function(){
+            update();
+        })
+        c.getSession().on('change', function(){
+            update();
+        })
+
+        j.getSession().on('change', function(){
+            update();
+        })
+    }
+    seteditor();
+    update();
+</script>
+
+
+
+    
+</body>
+
+</html>

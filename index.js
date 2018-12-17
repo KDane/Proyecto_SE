@@ -27,7 +27,6 @@ var publicpremium = express.static("public-premium");
 app.use(
     function(req,res,next){
         if (req.session.correoUsuario){
-            //Significa que el usuario si esta logueado
             if (req.session.idPlanUsuario == 1)
                 publicbasico(req,res,next);
             else if (req.session.idPlanUsuario == 2)
@@ -41,18 +40,19 @@ app.use(
 );
 
 
-
+//Login
 app.post("/login",function(req, res){
     var conexion = mysql.createConnection(credenciales);
     conexion.query(
-        "SELECT idUsuario, Correo, idPlan FROM usuario WHERE  correo=? and contrasena = sha1(?)",
-        [req.body.correo, req.body.contrasena],
+        "SELECT idUsuario, Correo, idPlan FROM usuario WHERE  contrasena = sha1(?) and correo=?",
+        [req.body.contrasena, req.body.correo],
         function(error, data, fields){
             if (error){
-                res.send(error);
+                res.send(error);  
                 res.end();
             }else{
-                if (data.length>0){
+                if (data.length==1){
+                    req.session.idUsuario = data[0].idUsuario; 
                     req.session.correoUsuario = data[0].Correo;
                     req.session.idPlanUsuario = data[0].idPlan;
                 }
@@ -63,35 +63,84 @@ app.post("/login",function(req, res){
     )
 });
 
+//Obteniendo la session 
 app.get("/obtener-session",function(req,res){
-    res.send(
-            " Correo: " + req.session.correoUsuario +
+    res.send( "Codigo Usuario: " + req.session.idUsuario+
+            ", Correo: " + req.session.correoUsuario +
             ", Tipo Usuario: " + req.session.idPlanUsuario
     );
     res.end();
 });
 
 
-//salir
+//Salir
 app.get("/cerrar-session",function(req,res){
     req.session.destroy();
     res.send("Sesion eliminada");
+    res.send("Debe loguearse de nuevo, si desea volver a entrar.")
+    res.write("body{background-color:black;color:white;}");
     res.end();
 });
 
 
-
+//Probando obtener planes
 app.get("/obtener-plan", function(req, res){
     var conexion = mysql.createConnection(credenciales);
-    conexion.query("SELECT idUsuario, Correo, idPlan  FROM usuario"),
-    [],
-    function(error, data, fields){
-        res.send(data);
-        res.end();
-    }   
+    var sql= "SELECT idPlan, Nombre_Plan, Espacio_Tiempo  FROM plan";
+    var planes = []; 
+    conexion.query(sql)
+    .on("result", function(resultado){
+        planes.push(resultado);
+    })
+    .on("end",function(){
+        res.send(planes);
+    }); 
+});
+
+//Probando obtener los usuario
+app.get("/obtener-usuarios", function(request, response){
+    var conexion = mysql.createConnection(credenciales);
+    var sql = "SELECT idUsuario, Nombre, Apellido, Correo, Contrasena, Imagen, idPlan FROM usuario";
+    var usuarios = [];
+    conexion.query(sql)
+    .on("result", function(resultado){
+        usuarios.push(resultado);
+    })
+    .on("end",function(){
+        response.send(usuarios);
+    });   
 });
 
 
+//Registro de usuarios
+app.post("/registrar", function(req, res){
+    var conexion= mysql.createConnection(credenciales);
+    conexion.query(
+        "INSERT INTO usuario(Nombre, Apellido, Correo, Contrasena, urlImagen, idPlan) VALUES (?,?,?,sha1(?),?,?)",
+        [
+            req.body.nombre,
+            req.body.apellido,
+            req.body.correo,
+            req.body.contrasena,
+            req.body.urlImagen,
+            req.body.idPlan
+
+        ],
+        function(error, data, fields){
+            if (error){
+                res.send(error);
+                res.end();
+            }else{
+                res.send(data);
+                res.end();
+            }
+        }
+
+    );
+
+})
 
 
-app.listen(8110);
+
+
+app.listen(8111);

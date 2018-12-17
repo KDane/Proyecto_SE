@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="img/favicon.ico" />
     <style>
       .form-control{
-        margin-bottom: 6px;
+      margin-bottom: 6px;
       }
 
       .post{
@@ -33,73 +33,108 @@
       }
 
       .bg{
-          background: url("../img/Fondo11.png");
+          background: black;
           enable-background:100ch;
       }
+
     </style>
   </head>
 
-  <body>
+  <body style="padding-top: 0; background-color: rgba(0, 0, 0, 0.884)">
+    <div class="row" style="margin: 0 ;">
+          <div class="col-3">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+              <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Perfil</a>
+              <a href=Planes.html class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Planes</a>
+              <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Salir</a>
+            </div>
+          </div>
+    </div>    
+    <main role="main" class="container">
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-      <a class="navbar-brand" href="#" ><img src="img/logo5.png" style="width: 200px;"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="starter-template">
+        <img src="img/logo4.png">
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <form class="form-inline my-2 my-lg-0 ml-auto">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Password">
-          <button class="btn btn-ligth btn-large" type="button" >Salir</button>
-        </form>
+        <p class="lead" style="color: #007bff;">Editor de codigo que te permite crear tus proyectos 
+            desde cualquier dispositivo</p>
+        <!--<input type="text" id="txt-carpeta-actual" class="form-control" disabled>
+        <table class="table table-striped table-hover text-left">
+          <thead>
+            <tr>
+              <th>Archivo</th>
+              <th>Ultima modificación</th>
+              <th>Usuario</th>
+              <th>Tamaño</th>
+            </tr>
+          </thead>
+          <tbody id="ficheros">
+
+          </tbody>
+        </table> -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-carpeta">Crear carpeta</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-archivo">Ingresar archivo</button>
       </div>
-    </nav>
-
-    <br><br>
-    <main role="main" class="container ">
-      <!-- Button trigger modal -->
-    <!-- <img src="img/Fondo11.png" style="width: 700px; height: 500px; margin: 60px 0px">-->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#postsModal">
-      Nuevo Carpeta</button>
-    <a class="btn btn-primary btn-xl js-scroll-trigger" href=Planes.html>Planes</a>
 
     </main><!-- /.container -->
 
-   
-    <!-- Ventana modal para agregar posts -->
-<div class="modal fade" id="postsModal" tabindex="-2" role="dialog" aria-labelledby="postsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="postsModalLabel">Crear Carpeta</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input type="text" class="form-control" id="txt-carpeta" placeholder="Nombre Carpeta">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-          <input type="button" class="btn btn-primary" value="Guardar" data-toggle="table" data-target="tb-carpeta">
+
+    <!-- Ventanas modales -->
+
+    <!-- Crear carpeta -->
+    <div class="modal fade" id="modal-carpeta" tabindex="-1" role="dialog"  aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Crear carpeta</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="formulario-nueva-carpeta">
+              <input id="txt-carpeta-nombre" type="text" class="form-control" placeholder="Nombre carpeta">
+              <input id="txt-carpeta-fecha-creacion" type="date" class="form-control" placeholder="Fecha creacion">
+              <input id="txt-carpeta-usuario-creador" type="text" class="form-control" placeholder="Usuario">
+              <input id="txt-carpeta-tamanio" type="text" class="form-control" placeholder="Tamaño">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button onclick="guardarCarpeta()" type="button" class="btn btn-primary">Crear carpeta</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Crear archivo -->
+    <div class="modal fade" id="modal-archivo" tabindex="-1" role="dialog"  aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Crear archivo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input id="txt-archivo-nombre" type="text" class="form-control" placeholder="Nombre archivo">
+            <input id="txt-archivo-fecha-creacion" type="text" class="form-control" placeholder="Fecha creacion">
+            <input id="txt-archivo-usuario-creador" type="text" class="form-control" placeholder="Usuario">
+            <input id="txt-archivo-tamanio" type="text" class="form-control" placeholder="Tamaño">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button onclick="guardarArchivo()" type="button" class="btn btn-primary">Crear archivo</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
-
-
-
-
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    
+    <script src="js/controlador-home.js"></script>
   </body>
 </html>
