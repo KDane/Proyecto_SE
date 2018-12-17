@@ -19,9 +19,9 @@
       margin-bottom: 6px;
       }
 
-      .post{
-        background-color: #FFFFFF; 
-        border: 1px solid #dcdedf;
+      .carpeta{
+        background-color:white; 
+        border: 1px solid white;
         margin: 0 12px;
         padding: 15px;
         border-radius:5px;
@@ -29,7 +29,7 @@
       }
 
       .img-thumbnail{
-        max-width: 50px;
+        max-width: 100px;
       }
 
       .bg{
@@ -46,7 +46,7 @@
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
               <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
               <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Perfil</a>
-              <a href=Planes.html class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Planes</a>
+              <a href="Planes.html" class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Planes</a>
               <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Salir</a>
             </div>
           </div>
@@ -73,8 +73,12 @@
           </tbody>
         </table> -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-carpeta">Crear carpeta</button>
+        
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-archivo">Ingresar archivo</button>
       </div>
+      <div  style="width:180px;"class="row" id="lista-carpetas"></div>
+
+     
 
     </main><!-- /.container -->
 
@@ -93,15 +97,14 @@
           </div>
           <div class="modal-body">
             <form id="formulario-nueva-carpeta">
-              <input id="txt-carpeta-nombre" type="text" class="form-control" placeholder="Nombre carpeta">
-              <input id="txt-carpeta-fecha-creacion" type="date" class="form-control" placeholder="Fecha creacion">
-              <input id="txt-carpeta-usuario-creador" type="text" class="form-control" placeholder="Usuario">
-              <input id="txt-carpeta-tamanio" type="text" class="form-control" placeholder="Tamaño">
+              <input id="nombreC" type="text" class="form-control" placeholder="Nombre carpeta">
+              <input id="fecha-creacionC" type="date" class="form-control" placeholder="Fecha creacion">
+            <!--  <input id="usuario-creadorC" type="text" class="form-control" placeholder="Usuario">-->
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button onclick="guardarCarpeta()" type="button" class="btn btn-primary">Crear carpeta</button>
+            <button onclick="registrarCarpetas()" type="button" class="btn btn-primary">Crear carpeta</button>
           </div>
         </div>
       </div>
@@ -118,10 +121,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <input id="txt-archivo-nombre" type="text" class="form-control" placeholder="Nombre archivo">
-            <input id="txt-archivo-fecha-creacion" type="text" class="form-control" placeholder="Fecha creacion">
-            <input id="txt-archivo-usuario-creador" type="text" class="form-control" placeholder="Usuario">
-            <input id="txt-archivo-tamanio" type="text" class="form-control" placeholder="Tamaño">
+            <input id="nombreA" type="text" class="form-control" placeholder="Nombre archivo">
+            <input id="fecha-creacionA" type="text" class="form-control" placeholder="Fecha creacion">
+            <input id="usuario-creadorA" type="text" class="form-control" placeholder="Usuario">
+            <input id="tamanioA" type="text" class="form-control" placeholder="Tamaño">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -27,14 +27,14 @@ var db; //variable global
     solicitud.onupgradeneeded = function(evento){
         console.log("La base de datos se creara");
         db = evento.target.result; //Obteniendo la refencia la base de datos creada (facebook)
-        var objectStoreUsuarios = 
+        var objectStoreCarpetas = 
         db.createObjectStore("carpetas", {keyPath: "codigo", autoIncrement: true});
 
-        objectStoreUsuarios.transaction.oncomplete = function(evento){
+        objectStoreCarpetas.transaction.oncomplete = function(evento){
             console.log("El object store de usuarios se creo con exito");
         }
 
-        objectStoreUsuarios.transaction.onerror = function(evento){
+        objectStoreCarpetas.transaction.onerror = function(evento){
             console.log("Error al crear el object store de usuarios");
         }
     
@@ -45,55 +45,28 @@ var db; //variable global
 
 
 function registrarCarpetas(){
-    if (
-        validarCampoVacio("slc-usuario") &&
-        validarCampoVacio("txt-post") &&
-        validarCampoVacio("txt-fecha") 
-    ){
-        var post = {};
-        post.usuario =  document.getElementById("slc-usuario").value;
-        post.post =  document.getElementById("txt-post").value;
-        post.fecha =  document.getElementById("txt-fecha").value;
+        var carpeta = {};
+        carpeta.nombre =  document.getElementById("nombreC").value;
+        carpeta.fecha =  document.getElementById("fecha-creacionC").value;
         
         ///Guardar informacion en el objectstore de usuarios de la base de datos de facebook
-        var transaccion = db.transaction(["posts"],"readwrite");///readwrite: Escritura/lectura, readonly: Solo lectura
-        var objectStorePosts = transaccion.objectStore("posts");
-        var solicitud = objectStorePosts.add(post);
+        var transaccion = db.transaction(["carpetas"],"readwrite");///readwrite: Escritura/lectura, readonly: Solo lectura
+        var objectStorePosts = transaccion.objectStore("carpetas");
+        var solicitud = objectStorePosts.add(carpeta);
         solicitud.onsuccess = function(evento){
-            console.log("Se agrego el post correctamente");
-            llenarListaPosts();
-            $('#postsModal').modal('hide');
+            console.log("Se agrego lacarpeta correctamente");
+            llenarListaCarpetas();
+            $('#modal-carpeta').modal('hide');
         }
 
         solicitud.onerror = function(evento){
             console.log("Ocurrio un error al guardar");
         }
-        console.log(post);
-    }
+        console.log(carpeta);
 }
 
-function validarCampoVacio(id){
-    if (document.getElementById(id).value==""){
-        document.getElementById(id).classList.remove("is-valid");
-        document.getElementById(id).classList.add("is-invalid");
-        return false;
-    } else{
-        document.getElementById(id).classList.remove("is-invalid");
-        document.getElementById(id).classList.add("is-valid");
-        return true;
-    }
-}
 
-function validarCorreo(etiqueta) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (re.test(etiqueta.value)){
-        etiqueta.classList.remove("is-invalid");
-        etiqueta.classList.add("is-valid");
-    } else{
-        etiqueta.classList.remove("is-valid");
-        etiqueta.classList.add("is-invalid");
-    }   
-}
+
 
 
 
@@ -110,13 +83,13 @@ function llenarListaCarpetas(){
         //Se ejecuta por cada objeto del objecstore
         if(evento.target.result){
             console.log(evento.target.result.value);
-            var post = evento.target.result.value;
+            var carpeta = evento.target.result.value;
             if (document.getElementById("lista-carpetas") !=null)
                 document.getElementById("lista-carpetas").innerHTML += 
                         '<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">'+
-                        '<div class="post"><img src="img/profile.jpg" class="rounded-circle img-thumbnail">'+
-                        '<b>'+post.usuario+'</b><small class="text-muted">'+post.fecha+'</small>'+
-                        '<hr>'+post.post+'<br><button type="button" onclick="eliminarPost('+post.codigo+')" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button></div></div>';
+                        '<div class="carpeta"><img src="img/carpeta.png" class="img-thumbnail">'+
+                        '<b><h3>'+carpeta.nombre+'</b></h3><br><small class="text-muted">'+carpeta.fecha+'</small>'+
+                        '<br><button type="button" onclick="eliminarPost('+carpeta.codigo+')" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i></button></div></div>';
  
             evento.target.result.continue();
         }
