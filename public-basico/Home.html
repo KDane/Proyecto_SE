@@ -32,6 +32,11 @@
         max-width: 100px;
       }
 
+      .imgc{
+        max-width: 50px;
+      }
+      
+
       .bg{
           background: black;
           enable-background:100ch;
@@ -76,7 +81,8 @@
         
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-archivo">Ingresar archivo</button>
       </div>
-      <div  style="width:180px;"class="row" id="lista-carpetas"></div>
+      <div   class="row" id="lista-carpetas"></div>
+      <div   class="row" id="lista-archivos"></div>
 
      
 
@@ -121,14 +127,13 @@
             </button>
           </div>
           <div class="modal-body">
+            <select class="form-control" id="slc-carpeta"></select>
             <input id="nombreA" type="text" class="form-control" placeholder="Nombre archivo">
-            <input id="fecha-creacionA" type="text" class="form-control" placeholder="Fecha creacion">
-            <input id="usuario-creadorA" type="text" class="form-control" placeholder="Usuario">
-            <input id="tamanioA" type="text" class="form-control" placeholder="Tamaño">
+            <input id="fecha-creacionA" type="date" class="form-control" placeholder="Fecha creacion">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button onclick="guardarArchivo()" type="button" class="btn btn-primary">Crear archivo</button>
+            <button onclick="registrarArchivos()" type="button" class="btn btn-primary">Crear archivo</button>
           </div>
         </div>
       </div>

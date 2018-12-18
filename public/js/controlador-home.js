@@ -14,6 +14,7 @@ var db; //variable global
         db = solicitud.result;
         //Leer la informacion del objectstore e imprimirla en la tabla html
         llenarListaCarpetas();
+        llenarListaArchivos();
         
     };
     
@@ -27,15 +28,16 @@ var db; //variable global
     solicitud.onupgradeneeded = function(evento){
         console.log("La base de datos se creara");
         db = evento.target.result; //Obteniendo la refencia la base de datos creada (facebook)
-        var objectStoreCarpetas = 
-        db.createObjectStore("carpetas", {keyPath: "codigo", autoIncrement: true});
+        var objectStoreCarpetas =  db.createObjectStore("carpetas", {keyPath: "codigo", autoIncrement: true});
+        db.createObjectStore("archivos", {keyPath: "codigo", autoIncrement: true});
 
         objectStoreCarpetas.transaction.oncomplete = function(evento){
-            console.log("El object store de usuarios se creo con exito");
+            console.log("El object store de carpetas se creo con exito");
         }
 
+
         objectStoreCarpetas.transaction.onerror = function(evento){
-            console.log("Error al crear el object store de usuarios");
+            console.log("Error al crear el object store de carpetas");
         }
     
     }
@@ -51,10 +53,10 @@ function registrarCarpetas(){
         
         ///Guardar informacion en el objectstore de usuarios de la base de datos de facebook
         var transaccion = db.transaction(["carpetas"],"readwrite");///readwrite: Escritura/lectura, readonly: Solo lectura
-        var objectStorePosts = transaccion.objectStore("carpetas");
-        var solicitud = objectStorePosts.add(carpeta);
+        var objectStoreCarpetas = transaccion.objectStore("carpetas");
+        var solicitud = objectStoreCarpetas.add(carpeta);
         solicitud.onsuccess = function(evento){
-            console.log("Se agrego lacarpeta correctamente");
+            console.log("Se agrego lac arpeta correctamente");
             llenarListaCarpetas();
             $('#modal-carpeta').modal('hide');
         }
@@ -65,7 +67,28 @@ function registrarCarpetas(){
         console.log(carpeta);
 }
 
+function registrarArchivos(){
+    var archivo = {};
+    archivo.car=  document.getElementById("slc-carpeta").value;
+    archivo.nombre =  document.getElementById("nombreA").value;
+    archivo.fecha =  document.getElementById("fecha-creacionA").value;
+    
+    ///Guardar informacion en el objectstore de usuarios de la base de datos de facebook
+    var transaccion = db.transaction(["archivos"],"readwrite");///readwrite: Escritura/lectura, readonly: Solo lectura
+    var objectStoreArchivos = transaccion.objectStore("archivos");
+    var solicitud = objectStoreArchivos.add(archivo);
+    solicitud.onsuccess = function(evento){
+        console.log("Se agrego el archivo correctamente");
+        llenarListaArchivos();
+        $('#modal-archivo').modal('hide');
 
+    }
+
+    solicitud.onerror = function(evento){
+        console.log("Ocurrio un error al guardar");
+    }
+    console.log(archivo);
+}
 
 
 
@@ -77,8 +100,8 @@ function llenarListaCarpetas(){
 
     //Leer el objectstore de usuarios para imprimir la informacion, debe ser en este punto porque esta funcion se ejecuta si se abrio la BD correctamente
     var transaccion = db.transaction(["carpetas"],"readonly");///readwrite: Escritura/lectura, readonly: Solo lectura
-    var objectStorePosts = transaccion.objectStore("carpetas");
-    var cursor = objectStorePosts.openCursor();
+    var objectStoreCarpetas = transaccion.objectStore("carpetas");
+    var cursor = objectStoreCarpetas.openCursor();
     cursor.onsuccess = function(evento){
         //Se ejecuta por cada objeto del objecstore
         if(evento.target.result){
@@ -86,18 +109,50 @@ function llenarListaCarpetas(){
             var carpeta = evento.target.result.value;
             if (document.getElementById("lista-carpetas") !=null)
                 document.getElementById("lista-carpetas").innerHTML += 
-                        '<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">'+
+                        '<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">'+
                         '<div class="carpeta"><img src="img/carpeta.png" class="img-thumbnail">'+
-                        '<b><h3>'+carpeta.nombre+'</b></h3><br><small class="text-muted">'+carpeta.fecha+'</small>'+
-                        '<br><button type="button" onclick="eliminarPost('+carpeta.codigo+')" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i></button></div></div>';
+                        '<b><h3>'+carpeta.nombre+'</b></h3><small class="text-muted">'+carpeta.fecha+'</small>'+
+                        '<br><button type="button" onclick="eliminarCarpeta('+carpeta.codigo+')" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i></button>' +
+                        ' <button type="button"  class="btn btn-outline-primary ml-auto"  data-toggle="modal" data-target="#modal-archivo"><i class="fas fa-file-code"></button></a></div></div>';
+            else if (document.getElementById("slc-carpeta")!=null){
+                    document.getElementById("slc-carpeta").innerHTML += '<option value="'+carpeta.codigo+'">'+carpeta.nombre +'</option>';
+                }
  
             evento.target.result.continue();
         }
     }
+    
+}
+
+function llenarListaArchivos(){
+    document.getElementById("lista-archivos").innerHTML="";
+
+    //Leer el objectstore de usuarios para imprimir la informacion, debe ser en este punto porque esta funcion se ejecuta si se abrio la BD correctamente
+    var transaccion = db.transaction(["archivos"],"readonly");
+    var objectStoreArchivos = transaccion.objectStore("archivos");
+    var cursor = objectStoreArchivos.openCursor(); 
+    cursor.onsuccess = function(evento){
+        //Se ejecuta por cada objeto del objecstore
+        if(evento.target.result){
+            console.log(evento.target.result.value);
+            var archivo = evento.target.result.value;
+            if (document.getElementById("lista-archivos") !=null)
+                document.getElementById("lista-archivos").innerHTML += 
+                        '<div class="col-xl-3 col-lg-3 col-md-4 col-sm-12 col-12">'+
+                        '<div class="carpeta"><img src="img/codigo.png" class=" imgc">'+
+                        '<b><h4>Carpeta: '+archivo.car +'</b></h4>'+
+                        '<b><h3>'+archivo.nombre+'</b></h3><small class="text-muted">'+archivo.fecha+'</small>'+
+                        '<br><button type="button" onclick="eliminarArchivo('+archivo.codigo+')" class="btn btn-outline-primary"><i class="fas fa-trash-alt"></i></button>' +
+                        ' <button type="button"  class="btn btn-outline-primary ml-auto"  data-toggle="modal" data-target="#modal-archivo"><i class="fas fa-file-code"></button></a></div></div>';
+ 
+            evento.target.result.continue();
+        }
+    }
+    
 }
 
 
-function eliminarPost(codigocarpeta){
+function eliminarCarpeta(codigocarpeta){
     console.log("Eliminar post con codigo: " + codigocarpeta);
         var solicitud = 
             db.transaction(["carpetas"],"readwrite")
@@ -106,6 +161,6 @@ function eliminarPost(codigocarpeta){
             
         solicitud.onsuccess = function(evento){
             console.log("Se elimino el post con codigo: " + codigocarpeta);
-            llenarListaPosts();
+            llenarListaCarpetas();
         }
 }
